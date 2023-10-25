@@ -3,11 +3,12 @@
 import json
 import os
 from flask import Flask, jsonify
+import requests
 app = Flask(__name__)
 @app.route('/')
 def index():
-    return jsonify({'name': 'alice',
-                    'email': 'alice@outlook.com'})
+    resp = requests.get(os.environ.get('ENDPOINT'))
+    return jsonify(resp.json())
 
 
 port = int(os.environ.get('PORT', 5000))
